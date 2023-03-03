@@ -136,7 +136,7 @@ function App() {
       headers: {
         'Access-Control-Allow-Origin': '*',
         //'Ocp-Apim-Subscription-Key': process.env.SUBSCRIPTION_KEY.toString() // No está definido, pendiente de revisar
-        'Ocp-Apim-Subscription-Key': "2f8f065441ae4a80ab23f6b3cd9837b4"
+        'Ocp-Apim-Subscription-Key': "efef36feaa5244cb82eaca12d1dad5ba"
       }
     };
 
@@ -146,7 +146,7 @@ function App() {
       delayantispam();
 
       // Enviamos petición para que se compare el PIN introducido con el que se ha enviado (se envía sólo el mail a la petición)
-      axios.post('https://testpasswordapi.azure-api.net/testpasswordfunctions/getpin', data3, config) // Esta función nos debe decir si el pin es correcto o no AQUÍ HAY QUE PASARLE PIN Y NO DATA
+      axios.post('https://flexxsign-api.azure-api.net/FlexxSign-Functions/getpin', data3, config) // Esta función nos debe decir si el pin es correcto o no AQUÍ HAY QUE PASARLE PIN Y NO DATA
         .then((res) => {
           console.log(res);
 
@@ -171,7 +171,7 @@ function App() {
               mail: data3.mail,
               generatedpassword: password
             }
-            axios.post('https://testpasswordapi.azure-api.net/testpasswordfunctions/executereset', finaldata, config)
+            axios.post('https://flexxsign-api.azure-api.net/FlexxSign-Functions/executereset', finaldata, config)
               .then((res) => {
                 
               }, (error) => {
@@ -218,7 +218,7 @@ function App() {
     }
     else if (userverified === true) {
       // Segunda vez que pulsas el botón
-      axios.put('https://testpasswordapi.azure-api.net/testpasswordfunctions/generate-pin', data2, config) //En esta función se genera el pin y se envía al usuario por el método seleccionado
+      axios.put('https://flexxsign-api.azure-api.net/FlexxSign-Functions/generatepin', data2, config) //En esta función se genera el pin y se envía al usuario por el método seleccionado
         .then((res) => {
           
           setPinMessage('Pin');
@@ -260,7 +260,7 @@ function App() {
       }
       else {
         isloading();
-        axios.put('https://testpasswordapi.azure-api.net/testpasswordfunctions/comprobarusuario', data, config)
+        axios.put('https://flexxsign-api.azure-api.net/FlexxSign-Functions/checkuser', data, config)
           .then((res) => {
             console.log(res);
             try {
@@ -268,7 +268,7 @@ function App() {
                 // Wait until the loading is finished
                 setTimeout(() => {
                   // Ask the api for the reset possible options
-                  axios.post('https://testpasswordapi.azure-api.net/testpasswordfunctions/getmethods', data, config)
+                  axios.post('https://flexxsign-api.azure-api.net/FlexxSign-Functions/getmethods', data, config)
                     .then((res) => {
                       console.log(res);
                       if (res.data === "pTel method") {
